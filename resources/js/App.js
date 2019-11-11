@@ -24,12 +24,12 @@ const App = props => {
           path="/posts"
           component={PostsPage}
         />
-        <Route
+        <GuestRoute
           authenticated={props.isLoggedIn}
           path="/signup"
           component={SignUpPage}
         />
-        <Route
+        <GuestRoute
           authenticated={props.isLoggedIn}
           path="/signin"
           component={SigninPage}
@@ -58,6 +58,17 @@ function AuthRoute({ component: Component, authenticated, ...rest }) {
 }
 
 
+function GuestRoute({ component: Component, authenticated, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      exact
+      render={props =>
+        !authenticated ? <Component {...props} /> : <Redirect to="/" />
+      }
+    />
+  );
+}
 const mapStateToProps = reduxStore => {
   return {
     isLoggedIn: reduxStore.authReducer.isLoggedIn,
