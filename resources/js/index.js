@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
-import {  HashRouter} from "react-router-dom";
-import { Provider, connect } from "react-redux";
-import { createBrowserHistory } from "history";
+import {Router} from "react-router-dom";
+import {Provider, connect} from "react-redux";
+import {createBrowserHistory} from "history";
 import axiosInstance from "./config/axios-instance";
 import store from "./stores/store-dev";
 
@@ -11,7 +11,7 @@ import App from "./App";
 import "antd/dist/antd.min.css";
 import "./stylesheets/main.scss";
 
-import { connectTheUser, getAuthUser } from "./actions/auth-actions/actions";
+import {connectTheUser, getAuthUser} from "./actions/auth-actions/actions";
 
 export const history = createBrowserHistory();
 
@@ -27,10 +27,10 @@ store.subscribe(() => {
   if (reduxSubs.authReducer.token) {
     axiosInstance.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${reduxSubs.authReducer.token}`;
+      ] = `Bearer ${reduxSubs.authReducer.token}`;
     axiosInstance.defaults.headers[
       "Authorization"
-    ] = `Bearer ${reduxSubs.authReducer.token}`;
+      ] = `Bearer ${reduxSubs.authReducer.token}`;
   }
 });
 
@@ -63,9 +63,9 @@ const ConnectedWrappedApp = connect(mapStateToProps)(WrappedApp);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedWrappedApp store={store}>
-      <HashRouter history={history}>
-        <App />
-      </HashRouter>
+      <Router history={history}>
+        <App/>
+      </Router>
     </ConnectedWrappedApp>
   </Provider>,
   document.getElementById("root")
